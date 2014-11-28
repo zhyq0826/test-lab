@@ -16,12 +16,12 @@ def glow_pyconf_ppt():
         f = open("/home/zhyq/slide%s.jpg"%i,"w")
         f.write(s.content)
 
-@profile
+#@profile
 def test_reference_cycle():
     import gc
     import time
-    MAX = 10000
-    LIFE = 15
+    MAX = 10
+    LIFE = 10
 
     class A(object):
 
@@ -52,15 +52,36 @@ def test_reference_cycle():
     logger.debug('object exists last %ss'%LIFE)
 
     time.sleep(LIFE)
-
+    
     #a.b = b
     #b.a = a
     logger.debug('delete a, b')
+    a.l = None
+    b.l = None
     a = None
     b = None
+    del a
+    del b
     logger.debug('a and b is deleted')
 
+    logger.debug('wait %s to collect'%LIFE)
     time.sleep(LIFE)
+    gc.collect()
+    logger.debug('collect is finished')
+
+    time.sleep(LIFE)
+
+def test_inspect():
+    import inspect
+
+    def hello(route, objid, val=10, *args, **kwargs):
+        import time
+        time.sleep(100)
+        print('hello world')
+
+    print(inspect.getargspec(hello))
+    #print(inspect.formatargspec())
+    print(inspect.getcallargs(hello, 'paper', 'id'))
 
 if __name__ == '__main__':
     test_reference_cycle()
