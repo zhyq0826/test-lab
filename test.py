@@ -108,5 +108,68 @@ def test_inspect():
     #print(inspect.formatargspec())
     print(inspect.getcallargs(hello, 'paper', 'id'))
 
+class Helper(dict):
+
+    def __setitem__(self, k, v):
+        return super(Helper, self).setdefault(k, v)
+
+    def __getitem__(self, k):
+        return super(Helper, self).get(k)
+
+
+class A(object):
+
+    def __init__(self, k=None):
+        self.k = k
+        self.hello()
+
+    def hello(self):
+        print(self.k)
+
+class B(object):
+
+    def __init__(self):
+        print(type(self))
+
+    def hello(self):
+        print(type(self))
+        return 'I am b %s'%id(self)
+
+def test_anonymous_object():
+    '''
+    h = Helper()
+    h['A'] = A
+    h['B'] = B
+    h['a'] = A()
+    h['b'] = B()
+    h['a'].hello()
+    print(h['a'])
+    print(h['A']())
+    print(h['A']())
+    print(h['A']())
+    print(h['A']()==h['A']())
+    print(id(h['A']())==id(h['A']()))
+    '''
+    a1 = A()
+    a11 = a1
+    a2 = A()
+    a3 = A()
+    a4 = A()
+    print(a1==a2)
+    print(id(a1)==id(a2))
+    print(a11==a1)
+    print(a1)
+    print(a2)
+    print(a3)
+    print(a4)
+    print(A())
+    print(A())
+    print(A('a'))
+    print(A('b')==A('k'))
+    print(id(A())==id(A('b')))
+     
+
 if __name__ == '__main__':
-    jing_fm_api()
+    pass
+
+    
