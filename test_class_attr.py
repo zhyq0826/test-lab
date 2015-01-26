@@ -2,6 +2,8 @@ class Base(object):
 
     _instance = {}
 
+    field = {'h': 10}
+
     @staticmethod
     def instance(key):
         if not Base._instance.get(key):
@@ -16,7 +18,7 @@ class A(Base):
 
 
 class B(Base):
-    pass
+     Base.field.update({'k': 10})
 
 
 if __name__ == '__main__':
@@ -26,4 +28,6 @@ if __name__ == '__main__':
     a.instance('h')
     print(b._instance) 
     print(a._instance)
-    print a._instance == b._instance 
+    print a._instance == b._instance
+    print(b.field)
+    print(Base.field)
