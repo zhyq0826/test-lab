@@ -170,6 +170,16 @@ def test_anonymous_object():
      
 
 if __name__ == '__main__':
-    pass
+    import inspect
+    class He(object):
+
+        def hello(self):
+            """
+            """
+            print(inspect. )
+            print(self)
+
+    h = He()
+    h.hello()
 
     
