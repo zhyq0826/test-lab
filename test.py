@@ -119,6 +119,7 @@ class Helper(dict):
 
 class A(object):
 
+
     def __init__(self, k=None):
         self.k = k
         self.hello()
