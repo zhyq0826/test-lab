@@ -1,12 +1,13 @@
 __author__ = 'zhyq'
 
+from tornado.util import ObjectDict
 class A(object):
 
     __slots__ = ['_data', '_dirty']
 
     def __init__(self):
         self._dirty = False
-        self._data = {'a':10}
+        self._data = ObjectDict({'a':10})
 
     def __getitem__(self, name):
         return self._data.get(name, None)
@@ -26,16 +27,16 @@ class A(object):
         return len(self._data)
 
     def __getattr__(self, name):
-        print('getattr')
-        return self._data.get(name)
+        print('getattr %s' % name)
+        return getattr(self._data, name)
 
     def __setattr__(self, name, value):
-        print('__setattr__')
+        print('__setattr__ %s '%name)
         if name in self.__slots__:
-            print('setattr slots')
+            print('setattr slots %s'%name)
             super(A, self).__setattr__(name, value)
         else:
-            print('setattr data')
+            print('setattr data %'%name)
             self._dirty = True
             setattr(self._data, name, value)
 
@@ -54,7 +55,8 @@ class A(object):
 
 if __name__ == '__main__':
     a = A()
-    a._dirty
-    a.a
-
-    #a.update()
+    # #a._dirty
+    # #a.a
+    print(a)
+    print(a.update())
+    #a.update({'10': 1})

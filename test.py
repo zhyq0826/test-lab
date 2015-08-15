@@ -3,8 +3,10 @@ from __future__ import print_function
 
 import logging
 from logging import StreamHandler
-
-from memory_profiler import profile
+try:
+    from memory_profiler import profile
+except:
+    pass
 import requests
 
 logger = logging.getLogger()
@@ -171,16 +173,9 @@ def test_anonymous_object():
      
 
 if __name__ == '__main__':
-    import inspect
-    class He(object):
-
-        def hello(self):
-            """
-            """
-            print(inspect. )
-            print(self)
-
-    h = He()
-    h.hello()
-
+    import requests
+    skip = 0
+    limit = 20
+    req = requests.get('http://service.picasso.adesk.com/v1/subject', data={'skip': skip, 'limit': limit})
+    print(req.content)
     
