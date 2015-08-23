@@ -7,6 +7,17 @@ def handle_request(request):
                  len(message), message))
     request.finish()
  
+
+# server = httpserver.HTTPServer(app)
+# server.listen(8888)
+# ioloop.IOLoop.current().start()
+
+# sockets = tornado.netutil.bind_sockets(8888)
+# tornado.process.fork_processes(0)
+# server = HTTPServer(app)
+# server.add_sockets(sockets)
+# IOLoop.current().start()
+
 http_server = httpserver.HTTPServer(handle_request)
 http_server.bind(8888)
 http_server.start()
